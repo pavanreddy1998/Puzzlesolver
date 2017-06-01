@@ -9,7 +9,7 @@ import java.lang.*;
 import java.awt.event.KeyEvent.*;
 import java.awt.event.KeyListener.*;
 import java.awt.Graphics.*;
-
+import java.util.Random;
 /**
  * The main Gui window for the system. displays the grid of tiles and will show how solutions were found
  * 
@@ -202,6 +202,30 @@ public class Gui
                 
             }
 
+			
+			else if(type == "shuff"){
+				int m=0;
+				int c[]=RandomizeArray(1,16);
+				
+				
+					   
+					   
+							 
+							
+
+
+                        for(i=0;i<4;i++)
+					   for(j=0;j<4;j++)
+					   {   
+						   pz[i][j]=c[m];
+						   m++;
+					   }							
+						draw();	 
+				
+			}
+			
+			
+			
 
 			else {
 				
@@ -256,4 +280,29 @@ public class Gui
     {
         new Gui();
     }
+	
+	
+	
+	
+	
+	public static int[] RandomizeArray(int a, int b){
+		Random rgen = new Random();  // Random number generator		
+		int size = b-a+1;
+		int[] array = new int[size];
+ 
+		for(int i=0; i< size; i++){
+			array[i] = a+i;
+		}
+ 
+		for (int i=0; i<array.length; i++) {
+		    int randomPosition = rgen.nextInt(array.length);
+		    int temp = array[i];
+		    array[i] = array[randomPosition];
+		    array[randomPosition] = temp;
+		}
+ 
+		
+ 
+		return array;
+	}
 }
