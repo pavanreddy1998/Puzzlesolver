@@ -26,8 +26,9 @@ public class Gui
     private JLabel[][] grid;
     private Container pane;
     private Timer timer;
-	int pz[][]=new int[100][100];
+	int pz[][]=new int[4][4];
 	int z=0,k,l;
+	int N=4;
     
 
     /**
@@ -204,24 +205,8 @@ public class Gui
 
 			
 			else if(type == "shuff"){
-				int m=0;
-				int c[]=RandomizeArray(1,16);
 				
-				
-					   
-					   
-							 
-							
-
-
-                        for(i=0;i<4;i++)
-					   for(j=0;j<4;j++)
-					   {   
-						   pz[i][j]=c[m];
-						   m++;
-					   }							
-						draw();	 
-				
+			shuffle(0,0);
 			}
 			
 			
@@ -280,6 +265,116 @@ public class Gui
     {
         new Gui();
     }
+	
+	
+	
+	
+	
+	void shuffle(int i,int j){
+		
+		int m=0;
+				int c[]=RandomizeArray(1,16);
+				
+				
+					   
+					   
+							 
+							
+
+
+                        for(i=0;i<4;i++)
+					   for(j=0;j<4;j++)
+					   {   
+						   pz[i][j]=c[m];
+						   m++;
+					   }	
+
+                    if(isSolvable(pz))
+					draw();
+                    else 		
+					{			
+					
+					shuffle(0,0);}
+		
+		
+	}
+	
+	
+	
+	
+	
+
+	int getInvCount(int arr[])
+{
+  int inv_count = 0;
+  for (int i = 0; i < N*N - 1; i++)
+    for (int j = i+1; j < N*N; j++)
+      if (arr[i] > arr[j])
+        inv_count++;
+ 
+  return inv_count;
+}
+ 
+// find Position of blank from bottom
+int findXPosition(int pz[][])
+{int i,j;
+    // start from bottom-right corner of matrix
+    for (i = N - 1; i >= 0; i--)
+        for (j = N - 1; j >= 0; j--)
+            if (pz[i][j] == 0)
+				break;
+			
+                return N-i;
+}
+ 
+// This function returns true if given
+// instance of N*N - 1 puzzle is solvable
+boolean isSolvable(int pz[][])
+{
+	
+	int c[]=new int[16];
+	int m=0;
+	    for(int i=0;i<4;i++)
+					   for(int j=0;j<4;j++)
+					   {   
+						   c[m]=pz[i][j];
+						   m++;
+					   }
+    // Count inversions in given puzzle
+    int invCount = getInvCount(c);
+ 
+    // If grid is odd, return true if inversion
+    // count is even.
+    if (N%2!=0)
+	{	
+	  if(invCount%2==0)
+        return true;
+	else return false;
+    
+	
+	}
+    else     // grid is even
+    {
+        int pos = findXPosition(pz);
+        if (pos%2!=0)
+            if(invCount%2==0)
+			{
+			return true;}
+	           else return false;
+        else
+            if(invCount%2==0)
+               return false;
+	           else {
+			   return true;}
+    }
+}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
