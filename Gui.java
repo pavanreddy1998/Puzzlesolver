@@ -286,7 +286,7 @@ public class Gui
 					   for(j=0;j<4;j++)
 					   {   
 						   pz[i][j]=c[m];
-						   m++;
+						   m=m+1;
 					   }	
 
                     if(isSolvable(pz))
@@ -338,7 +338,7 @@ boolean isSolvable(int pz[][])
 					   for(int j=0;j<4;j++)
 					   {   
 						   c[m]=pz[i][j];
-						   m++;
+						   m=m+1;
 					   }
     // Count inversions in given puzzle
     int invCount = getInvCount(c);
@@ -386,7 +386,8 @@ boolean isSolvable(int pz[][])
 		int[] array = new int[size];
  
 		for(int i=0; i< size; i++){
-			array[i] = a+i;
+			array[i] = a;
+			array[i]+=i;
 		}
  
 		for (int i=0; i<array.length; i++) {
